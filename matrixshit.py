@@ -1,4 +1,4 @@
-from math import cos, dist, sin
+from math import cos, sin
 from typing import Tuple
 
 import numpy as np
@@ -41,18 +41,24 @@ class Point3(np.ndarray):
             (0, 0, 1, y),
             (0, 0, 0, 1)
         ])
-        self = transarray.dot(self)
+        transformed = transarray.dot(self)
+        self[1, 0] = transformed[1, 0]
+        self[2, 0] = transformed[2, 0]
+        self[3, 0] = transformed[3, 0]
         return self
     
     # Scaling from scale matrix
-    def scale(self, sx: float = 0, sy: float = 0, sz: float = 0) -> 'Point3':
-        scalearray = np.array({
+    def scale(self, sx: float = 1, sy: float = 1, sz: float = 1) -> 'Point3':
+        scalearray = np.array([
             (sx, 0, 0, 0),
             (0, sy, 0, 0),
             (0, 0, sz, 0),
             (0, 0, 0, 1)
-        })
-        self = scalearray.dot(self)
+        ])
+        transformed = scalearray.dot(self)
+        self[1, 0] = transformed[1, 0]
+        self[2, 0] = transformed[2, 0]
+        self[3, 0] = transformed[3, 0]
         return self
 
     # Rotation around X axis
@@ -61,7 +67,11 @@ class Point3(np.ndarray):
                     (0, cos(t), -sin(t), 0),
                     (0, sin(t), cos(t), 0),
                     (0, 0, 0, 1)], dtype=float)
-        return rotarray.dot(self)
+        transformed = rotarray.dot(self)
+        self[1, 0] = transformed[1, 0]
+        self[2, 0] = transformed[2, 0]
+        self[3, 0] = transformed[3, 0]
+        return self
     
     # Rotation around y axis
     def rY(self, t: float) -> 'Point3':
@@ -69,7 +79,10 @@ class Point3(np.ndarray):
             (0, 1, 0, 0),
             (-sin(t), 0, cos(t), 0),
             (0, 0, 0, 1)])
-        self = rotarray.dot(self)
+        transformed = rotarray.dot(self)
+        self[1, 0] = transformed[1, 0]
+        self[2, 0] = transformed[2, 0]
+        self[3, 0] = transformed[3, 0]
         return self
     
     # Rotation around Z axis
@@ -78,7 +91,10 @@ class Point3(np.ndarray):
                     (sin(t), cos(t), 0, 0),
                     (0, 0, 1, 0),
                     (0, 0, 0, 1)])
-        self = rotarray.dot(self)
+        transformed = rotarray.dot(self)
+        self[1, 0] = transformed[1, 0]
+        self[2, 0] = transformed[2, 0]
+        self[3, 0] = transformed[3, 0]        
         return self
     
     # Project into 2D

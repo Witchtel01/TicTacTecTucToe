@@ -29,7 +29,7 @@ class Object:
     # rot around Y axis
     def rY(self, t: float) ->List[np.ndarray]:
         rotverts = []
-        for vert in obj.verts:
+        for vert in self.verts:
             rotverts.append(vert.rY(t))
         self.verts = rotverts
         return rotverts
@@ -37,11 +37,20 @@ class Object:
     # rot around Z axis
     def rZ(self, t: float) ->List[np.ndarray]:
         rotverts = []
-        for vert in obj.verts:
+        for vert in self.verts:
             rotverts.append(vert.rZ(t))
         self.verts = rotverts
         return rotverts
+    
+    # Scale
+    def scale(self, sx: float = 1, sy: float = 1, sz: float = 1) -> List[np.ndarray]:
+        scaledverts = []
+        for vert in self.verts:
+            scaledverts.append(vert.scale(sx, sy, sz))
+        self.verts = scaledverts
+        return scaledverts
 
+    # Duh
     def printout(self):
         print("Verts: ")
         for vert in self.verts:
@@ -65,9 +74,9 @@ class Object:
         return Object(vertList, connectList)
 
     def draw(self, distance):
-        for connection in self.connections:
-            pt1 = self.verts[connection[0]].project(distance) + int(self.screen.get_width()/2)
-            pt2 = self.verts[connection[1]].project(distance) + int(self.screen.get_width()/2)
+        for con in self.connections:
+            pt1 = self.verts[con[0]].project(distance) + int(self.screen.get_width()/2)
+            pt2 = self.verts[con[1]].project(distance) + int(self.screen.get_width()/2)
             pg.draw.line(self.screen, (255, 255, 255), (pt1.x, pt1.y), (pt2.x, pt2.y), 2)
 
 
