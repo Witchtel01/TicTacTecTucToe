@@ -94,6 +94,17 @@ class Point3(np.ndarray):
         y = self.y * scale
         return Point2(x, y)
     
+    # Project into 2D using a matrix
+    def matrixproject(self) -> 'Point3':
+        projectmatrix = np.array([
+            (1, 0, 0, 0),
+            (0, 1, 0, 0),
+            (0, 0, 1, 1),
+            (0, 0, 1, 0)
+        ])
+        transform = projectmatrix.dot(self)
+        return Point3(transform[0, 0], transform[1, 0], transform[2, 0])
+    
     # To string representation
     def __repr__(self) -> str:
         return f"Point3(x={self.x},y={self.y},z={self.z},a={self.a})"

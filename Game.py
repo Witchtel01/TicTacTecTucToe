@@ -71,7 +71,13 @@ class Game:
             elif event == pg.K_d:
                 for obj in self.models:
                     obj.translate(1, 0, 0)
-    
+            elif event == pg.K_c:
+                for obj in self.models:
+                    obj.translate(0, 0, 1)
+            elif event == pg.K_x:
+                for obj in self.models:
+                    obj.translate(0, 0, -1)
+
     def render(self):
         for obj in self.models:
-            obj.orthodraw()
+            obj.draw(8)
