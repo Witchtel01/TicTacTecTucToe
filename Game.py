@@ -1,13 +1,7 @@
-from os import environ
-from turtle import update
-
-import win32api
-
-# Hacky disable support prompt
-environ["PYGAME_HIDE_SUPPORT_PROMPT"] = '1'
-
+from math import radians
 
 import pygame as pg
+import win32api
 
 from EventHandler import EventHandler
 from Objects import Object
@@ -42,7 +36,41 @@ class Game:
     def loop(self):
         while self.eventhandler.isRunning():
             self.eventhandler.updateEvents()
+            self.handleEvents()
             self.tick()
+    
+    def handleEvents(self):
+        for event in self.eventhandler.getKeys():
+            if event == pg.K_UP:
+                for obj in self.models:
+                    obj.rX(radians(1))
+            elif event == pg.K_DOWN:
+                for obj in self.models:
+                    obj.rX(radians(-1))
+            elif event == pg.K_LEFT:
+                for obj in self.models:
+                    obj.rY(radians(-2))
+            elif event == pg.K_RIGHT:
+                for obj in self.models:
+                    obj.rY(radians(2))
+            elif event == pg.K_LEFTBRACKET:
+                for obj in self.models:
+                    obj.scale(0.9, 0.9, 0.9)
+            elif event == pg.K_RIGHTBRACKET:
+                for obj in self.models:
+                    obj.scale(1.1, 1.1, 1.1)
+            elif event == pg.K_w:
+                for obj in self.models:
+                    obj.translate(0, -1, 0)
+            elif event == pg.K_s:
+                for obj in self.models:
+                    obj.translate(0, 1, 0)
+            elif event == pg.K_a:
+                for obj in self.models:
+                    obj.translate(-1, 0, 0)
+            elif event == pg.K_d:
+                for obj in self.models:
+                    obj.translate(1, 0, 0)
     
     def render(self):
         for obj in self.models:

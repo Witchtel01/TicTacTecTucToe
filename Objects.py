@@ -37,6 +37,11 @@ class Object:
     def scale(self, sx: float = 1, sy: float = 1, sz: float = 1) -> None:
         for i, vert in enumerate(self.verts):
             self.verts[i] = vert.scale(sx, sy, sz)
+            
+    # Translate
+    def translate(self, x: float = 0, y: float = 0, z: float = 0) -> None:
+        for i, vert in enumerate(self.verts):
+            self.verts[i] = vert.translate(x, y, z)
 
     # Duh
     def printout(self):

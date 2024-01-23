@@ -9,7 +9,7 @@ class EventHandler:
             if event.type == pg.QUIT:
                 self.running = False
             elif event.type == pg.VIDEORESIZE:
-                pg.display.set_mode(event.w, event.h, pg.RESIZABLE)
+                pg.display.set_mode((event.w, event.h), pg.RESIZABLE)
             elif event.type == pg.MOUSEBUTTONDOWN:
                 self.holding.append(event.button)
             elif event.type == pg.KEYDOWN:
