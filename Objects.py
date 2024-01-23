@@ -1,5 +1,4 @@
-from math import cos, dist, pi, sin
-from turtle import distance
+from math import pi
 from typing import List, Tuple
 
 import numpy as np
