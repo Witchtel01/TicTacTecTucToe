@@ -7,8 +7,9 @@ def main():
     width, height = 300, 300
     refresh_rate = Game.getRefreshRate()
     g = Game(width, height, refresh_rate)
+    defaultCube = Object.getDefaultPrism()
+    g.addModel(defaultCube)
     
-
 if __name__ == "__main__":
     main()
     

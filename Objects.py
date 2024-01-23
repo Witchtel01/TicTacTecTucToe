@@ -39,7 +39,7 @@ class Object:
         self.verts = rotverts
         return rotverts
 
-    def display(self):
+    def printout(self):
         print("Verts: ")
         for vert in self.verts:
             print(vert)
@@ -47,7 +47,7 @@ class Object:
         print(self.connections)
     
     @staticmethod
-    def getDefaultCube() -> 'Object':
+    def getDefaultPrism() -> 'Object':
         vertList = [(2, 3, 1),
                 (2, 3, -1),
                 (2, -3, 1),
@@ -61,6 +61,8 @@ class Object:
                     (0, 4), (1, 5), (2, 6), (3, 7)]
         return Object(vertList, connectList)
 
+    def draw(self):
+        pass
 
 
 if __name__ == "__main__":
@@ -76,5 +78,5 @@ if __name__ == "__main__":
                    (4, 5), (5, 7), (7, 6), (6, 4),
                    (0, 4), (1, 5), (2, 6), (3, 7)]
     obj = Object(vertList, connectList)
-    obj.display()
+    obj.printout()
     print(Object.rX(obj,pi/4))

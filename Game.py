@@ -31,6 +31,7 @@ class Game:
         self.models.append(obj)
     
     def tick(self) -> None:
+        self.render()
         pg.display.flip()
         self.screen.fill((0,0,0))
         self.clock.tick(self.refresh_rate)
@@ -42,3 +43,6 @@ class Game:
         while self.eventhandler.isRunning():
             self.eventhandler.updateEvents()
             self.tick()
+    
+    def render(self):
+        pass
