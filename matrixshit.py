@@ -38,13 +38,11 @@ class Point3(np.ndarray):
         transarray = np.array([
             (1, 0, 0, x),
             (0, 1, 0, y),
-            (0, 0, 1, y),
+            (0, 0, 1, z),
             (0, 0, 0, 1)
         ])
         transformed = transarray.dot(self)
-        self[1, 0] = transformed[1, 0]
-        self[2, 0] = transformed[2, 0]
-        self[3, 0] = transformed[3, 0]
+        self[:, 0] = transformed[:, 0]
         return self
     
     # Scaling from scale matrix
@@ -56,9 +54,7 @@ class Point3(np.ndarray):
             (0, 0, 0, 1)
         ])
         transformed = scalearray.dot(self)
-        self[1, 0] = transformed[1, 0]
-        self[2, 0] = transformed[2, 0]
-        self[3, 0] = transformed[3, 0]
+        self[:, 0] = transformed[:, 0]
         return self
 
     # Rotation around X axis
@@ -68,9 +64,7 @@ class Point3(np.ndarray):
                     (0, sin(t), cos(t), 0),
                     (0, 0, 0, 1)], dtype=float)
         transformed = rotarray.dot(self)
-        self[1, 0] = transformed[1, 0]
-        self[2, 0] = transformed[2, 0]
-        self[3, 0] = transformed[3, 0]
+        self[:, 0] = transformed[:, 0]
         return self
     
     # Rotation around y axis
@@ -80,9 +74,7 @@ class Point3(np.ndarray):
             (-sin(t), 0, cos(t), 0),
             (0, 0, 0, 1)])
         transformed = rotarray.dot(self)
-        self[1, 0] = transformed[1, 0]
-        self[2, 0] = transformed[2, 0]
-        self[3, 0] = transformed[3, 0]
+        self[:, 0] = transformed[:, 0]
         return self
     
     # Rotation around Z axis
@@ -92,9 +84,7 @@ class Point3(np.ndarray):
                     (0, 0, 1, 0),
                     (0, 0, 0, 1)])
         transformed = rotarray.dot(self)
-        self[1, 0] = transformed[1, 0]
-        self[2, 0] = transformed[2, 0]
-        self[3, 0] = transformed[3, 0]        
+        self[:, 0] = transformed[:, 0]       
         return self
     
     # Project into 2D

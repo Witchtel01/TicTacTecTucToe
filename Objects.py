@@ -1,3 +1,4 @@
+import enum
 from math import pi
 from typing import List, Tuple
 
@@ -18,36 +19,24 @@ class Object:
         return cls([(point.x, point.y, point.z) for point in pointList], connects)
     
     # rot around X axis
-    def rX(self, t: float) -> List[np.ndarray]:
-        rotverts = []
-        for vert in obj.verts:
-            rotverts.append(vert.rX(t))
-        self.verts = rotverts
-        return rotverts
+    def rX(self, t: float) -> None:
+        for i, vert in enumerate(self.verts):
+            self.verts[i] = vert.rX(t)
 
     # rot around Y axis
-    def rY(self, t: float) ->List[np.ndarray]:
-        rotverts = []
-        for vert in self.verts:
-            rotverts.append(vert.rY(t))
-        self.verts = rotverts
-        return rotverts
+    def rY(self, t: float) ->None:
+        for i, vert in enumerate(self.verts):
+            self.verts[i] = vert.rY(t)
 
     # rot around Z axis
-    def rZ(self, t: float) ->List[np.ndarray]:
-        rotverts = []
-        for vert in self.verts:
-            rotverts.append(vert.rZ(t))
-        self.verts = rotverts
-        return rotverts
+    def rZ(self, t: float) ->None:
+        for i, vert in enumerate(self.verts):
+            self.verts[i] = vert.rZ(t)
     
     # Scale
-    def scale(self, sx: float = 1, sy: float = 1, sz: float = 1) -> List[np.ndarray]:
-        scaledverts = []
-        for vert in self.verts:
-            scaledverts.append(vert.scale(sx, sy, sz))
-        self.verts = scaledverts
-        return scaledverts
+    def scale(self, sx: float = 1, sy: float = 1, sz: float = 1) -> None:
+        for i, vert in enumerate(self.verts):
+            self.verts[i] = vert.scale(sx, sy, sz)
 
     # Duh
     def printout(self):
@@ -93,4 +82,4 @@ if __name__ == "__main__":
                    (0, 4), (1, 5), (2, 6), (3, 7)]
     obj = Object(vertList, connectList)
     obj.printout()
-    print(Object.rX(obj,pi/4))
+    print(obj.rX(pi/4))
