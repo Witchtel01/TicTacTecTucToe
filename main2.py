@@ -16,6 +16,7 @@ def main():
     defaultCube.rX(math.radians(45))
     defaultCube.rY(math.radians(20))
     g.addModel(defaultCube)
+    print("WASD = Translation\nArrows = Rotation\n\"[\" and \"]\" for Zooming in/out")
     g.loop()
     
 if __name__ == "__main__":
