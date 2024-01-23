@@ -66,6 +66,12 @@ class Object:
             pt1 = self.verts[con[0]].project(distance) + int(self.screen.get_width()/2)
             pt2 = self.verts[con[1]].project(distance) + int(self.screen.get_width()/2)
             pg.draw.line(self.screen, (255, 255, 255), (pt1.x, pt1.y), (pt2.x, pt2.y), 2)
+    
+    def orthodraw(self):
+        for con in self.connections:
+            pt1 = self.verts[con[0]] + int(self.screen.get_width()/2)
+            pt2 = self.verts[con[1]] + int(self.screen.get_width()/2)
+            pg.draw.line(self.screen, (0, 255, 0), (pt1.x, pt1.y), (pt2.x, pt2.y), 2)
 
 
 if __name__ == "__main__":

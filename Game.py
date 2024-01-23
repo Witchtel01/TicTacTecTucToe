@@ -46,4 +46,4 @@ class Game:
     
     def render(self):
         for obj in self.models:
-            obj.draw(5)
+            obj.orthodraw()
