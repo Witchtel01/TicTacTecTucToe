@@ -80,4 +80,4 @@ class Game:
 
     def render(self):
         for obj in self.models:
-            obj.draw(8)
+            obj.draw(1)
