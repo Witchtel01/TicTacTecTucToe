@@ -1,4 +1,5 @@
-from math import cos, pi, sin
+from math import cos, dist, pi, sin
+from turtle import distance
 from typing import List, Tuple
 
 import numpy as np
@@ -63,11 +64,11 @@ class Object:
                     (0, 4), (1, 5), (2, 6), (3, 7)]
         return Object(vertList, connectList)
 
-    def project(self):
-        pass
-    def draw(self):
+    def draw(self, distance):
         for connection in self.connections:
-            pass
+            pt1 = self.verts[connection[0]].project(distance) + int(self.screen.get_width()/2)
+            pt2 = self.verts[connection[1]].project(distance) + int(self.screen.get_width()/2)
+            pg.draw.line(self.screen, (255, 255, 255), (pt1.x, pt1.y), (pt2.x, pt2.y), 2)
 
 
 if __name__ == "__main__":

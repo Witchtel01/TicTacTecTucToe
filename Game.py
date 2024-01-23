@@ -45,4 +45,5 @@ class Game:
             self.tick()
     
     def render(self):
-        pass
+        for obj in self.models:
+            obj.draw()

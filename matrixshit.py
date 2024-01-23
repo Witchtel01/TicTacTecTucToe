@@ -1,4 +1,4 @@
-from math import cos, sin
+from math import cos, dist, sin
 from typing import Tuple
 
 import numpy as np
@@ -80,6 +80,13 @@ class Point3(np.ndarray):
                     (0, 0, 0, 1)])
         self = rotarray.dot(self)
         return self
+    
+    # Project into 2D
+    def project(self, distance) -> 'Point2':
+        scale = distance / (distance + self.z)
+        x = self.x * scale
+        y = self.y * scale
+        return Point2(x, y)
     
     # To string representation
     def __repr__(self) -> str:
