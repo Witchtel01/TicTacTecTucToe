@@ -3,16 +3,18 @@ from typing import List, Tuple
 
 import numpy as np
 
-from matrixshit import Point
+from matrixshit import Point3
+import pygame as pg
 
 
 class Object:
     def __init__(self, verts: List[Tuple[float, float, float]], connects: List[Tuple[int, int]]):
-        self.verts = [Point.from_tuple((x, y, z)) for x, y, z in verts]
+        self.verts = [Point3.from_tuple((x, y, z)) for x, y, z in verts]
         self.connections = np.array(connects)
+        self.screen = pg.display.get_surface()
     
     @classmethod
-    def from_points(cls, pointList: List['Point'], connects: List[Tuple[int, int]]):
+    def from_points(cls, pointList: List['Point3'], connects: List[Tuple[int, int]]):
         return cls([(point.x, point.y, point.z) for point in pointList], connects)
     
     # rot around X axis
@@ -61,8 +63,11 @@ class Object:
                     (0, 4), (1, 5), (2, 6), (3, 7)]
         return Object(vertList, connectList)
 
-    def draw(self):
+    def project(self):
         pass
+    def draw(self):
+        for connection in self.connections:
+            pass
 
 
 if __name__ == "__main__":
