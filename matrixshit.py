@@ -89,7 +89,7 @@ class Point3(np.ndarray):
     
     # Project into 2D using a matrix
     @staticmethod
-    def matrixproject(point: 'Point3', distance, focal: float, near: float) -> 'Point3':
+    def matrixproject(point: 'Point3', distance, focal: float, near: float, viewTransform) -> 'Point3':
         """
         Project a Point3 object into 2D using a matrix.
 
@@ -102,7 +102,7 @@ class Point3(np.ndarray):
             [0, 0, -(focal+near)/(focal-near), -2*(focal*near)/(focal-near)],
             [0, 0, -1, 0]
         ])
-        transform = projectmatrix@point
+        transform = projectmatrix@viewTransform@point
         return Point3(transform[0, 0], transform[1, 0], transform[2, 0])
     
     # To string representation

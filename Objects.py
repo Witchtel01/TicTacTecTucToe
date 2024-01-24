@@ -65,10 +65,10 @@ class Object:
                     (0, 4), (1, 5), (2, 6), (3, 7)]
         return Object(vertList, connectList)
 
-    def draw(self, distance, focal, near):
+    def draw(self, distance, focal, near, viewTransform):
         for con in self.connections:
-            pt1 = Point3.matrixproject(self.verts[con[0]], distance, focal, near)
-            pt2 = Point3.matrixproject(self.verts[con[1]], distance, focal, near)
+            pt1 = Point3.matrixproject(self.verts[con[0]], distance, focal, near, viewTransform)
+            pt2 = Point3.matrixproject(self.verts[con[1]], distance, focal, near, viewTransform)
             pg.draw.line(self.screen, (0, 255, 0),
                          (pt1.x/pt1.w+int(self.screen.get_width()/2), pt1.y/pt1.w+int(self.screen.get_height()/2)),
                          (pt2.x/pt2.w+int(self.screen.get_width()/2), pt2.y/pt2.w+int(self.screen.get_height()/2)), 2)

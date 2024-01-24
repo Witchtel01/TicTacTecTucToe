@@ -69,23 +69,19 @@ class Game:
                 for obj in self.models:
                     obj.scale(1.1, 1.1, 1.1)
             elif event == pg.K_w:
-                for obj in self.models:
-                    obj.translate(0, -1, 0)
+                self.viewTransform[1, 3] +=1
             elif event == pg.K_s:
-                for obj in self.models:
-                    obj.translate(0, 1, 0)
+                self.viewTransform[1, 3] -=1
             elif event == pg.K_a:
                 for obj in self.models:
                     obj.translate(-1, 0, 0)
             elif event == pg.K_d:
                 for obj in self.models:
                     obj.translate(1, 0, 0)
-            elif event == pg.K_c:
-                for obj in self.models:
-                    obj.translate(0, 0, 1)
-            elif event == pg.K_x:
-                for obj in self.models:
-                    obj.translate(0, 0, -1)
+            elif event == pg.K_q:
+                self.viewTransform[3, 3] -=1
+            elif event == pg.K_e:
+                self.viewTransform[3, 3] +=1
             elif event == pg.K_i:
                 self.distance +=0.1
             elif event == pg.K_o:
@@ -93,4 +89,4 @@ class Game:
 
     def render(self):
         for obj in self.models:
-            obj.draw(self.distance, self.focalLength, self.nearClipping)
+            obj.draw(self.distance, self.focalLength, self.nearClipping, self.viewTransform)
