@@ -1,4 +1,3 @@
-import enum
 from math import pi
 from typing import List, Tuple
 
@@ -66,11 +65,13 @@ class Object:
                     (0, 4), (1, 5), (2, 6), (3, 7)]
         return Object(vertList, connectList)
 
-    def draw(self, distance):
+    def draw(self, distance, focal, near):
         for con in self.connections:
-            pt1 = self.verts[con[0]].matrixproject()
-            pt2 = self.verts[con[1]].matrixproject()
-            pg.draw.line(self.screen, (0, 255, 0), (pt1.x*distance/pt1[3,0]+int(self.screen.get_width()/2), pt1.y*distance/pt1[3,0]+int(self.screen.get_height())), (pt2.x*distance/pt2[3,0]+int(self.screen.get_width()/2), pt2.y*distance/pt2[3,0]+int(self.screen.get_height()/2)), 2)
+            pt1 = Point3.matrixproject(self.verts[con[0]], distance, focal, near)
+            pt2 = Point3.matrixproject(self.verts[con[1]], distance, focal, near)
+            pg.draw.line(self.screen, (0, 255, 0),
+                         (pt1.x/pt1.w+int(self.screen.get_width()/2), pt1.y/pt1.w+int(self.screen.get_height()/2)),
+                         (pt2.x/pt2.w+int(self.screen.get_width()/2), pt2.y/pt2.w+int(self.screen.get_height()/2)), 2)
     
     def orthodraw(self):
         for con in self.connections:
@@ -80,17 +81,7 @@ class Object:
 
 
 if __name__ == "__main__":
-    vertList = [(2, 3, 1),
-                (2, 3, -1),
-                (2, -3, 1),
-                (2, -3, -1),
-                (-2, 3, 1),
-                (-2, 3, -1),
-                (-2, -3, 1),
-                (-2, -3, -1)]
-    connectList = [(0, 1), (1, 3), (3, 2), (2, 0),
-                   (4, 5), (5, 7), (7, 6), (6, 4),
-                   (0, 4), (1, 5), (2, 6), (3, 7)]
-    obj = Object(vertList, connectList)
+
+    obj = Object.getDefaultPrism()
     obj.printout()
     print(obj.rX(pi/4))

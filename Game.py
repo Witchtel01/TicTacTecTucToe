@@ -1,5 +1,6 @@
 from math import radians
 
+import numpy as np
 import pygame as pg
 import win32api
 
@@ -14,7 +15,15 @@ class Game:
         self.screen = pg.display.set_mode((w, h), pg.RESIZABLE)
         self.clock = pg.time.Clock()
         self.refresh_rate = refresh_rate
+        self.distance = 5.0
+        self.focalLength = 1.0
+        self.nearClipping = 0.1
         self.models = []
+        self.viewTransform = np.array([
+            (1,0,0,0),
+            (0,1,0,0),
+            (0,0,1,0),
+            (0,0,0,1)], dtype= float)
         self.eventhandler = EventHandler()
     
     @staticmethod
@@ -25,9 +34,9 @@ class Game:
         self.models.append(obj)
     
     def tick(self) -> None:
+        self.screen.fill((0,0,0))
         self.render()
         pg.display.flip()
-        self.screen.fill((0,0,0))
         self.clock.tick(self.refresh_rate)
         pg.display.set_caption(
             f"FPS: {round(self.clock.get_fps(), 2)}"
@@ -77,7 +86,11 @@ class Game:
             elif event == pg.K_x:
                 for obj in self.models:
                     obj.translate(0, 0, -1)
+            elif event == pg.K_i:
+                self.distance +=0.1
+            elif event == pg.K_o:
+                self.distance -=0.1
 
     def render(self):
         for obj in self.models:
-            obj.draw(1)
+            obj.draw(self.distance, self.focalLength, self.nearClipping)
