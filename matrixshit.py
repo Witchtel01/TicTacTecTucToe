@@ -89,21 +89,31 @@ class Point3(np.ndarray):
     
     # Project into 2D using a matrix
     @staticmethod
-    def matrixproject(point: 'Point3', distance, focal: float, near: float, viewTransform) -> 'Point3':
+    def matrixproject(point: 'Point3', distance, focal: float, near: float, viewTransform) -> 'Point2':
         """
         Project a Point3 object into 2D using a matrix.
 
         Returns:
             A new Point3 object representing the projected point.
         """
+        # Advanced projectmatrix
+        # projectmatrix = np.array([
+        #     [focal/distance, 0, 0, 0],
+        #     [0, focal/distance, 0, 0],
+        #     [0, 0, -(focal+near)/(focal-near), -2*(focal*near)/(focal-near)],
+        #     [0, 0, -1, 0]
+        # ])
+        
+        # Simple projectmatrix
         projectmatrix = np.array([
-            [focal/distance, 0, 0, 0],
-            [0, focal/distance, 0, 0],
-            [0, 0, -(focal+near)/(focal-near), -2*(focal*near)/(focal-near)],
-            [0, 0, -1, 0]
+            (1, 0, 0, 0),
+            (0, 1, 0, 0),
+            (0, 0, 1, distance),
+            (0, 0, 0, 1)
         ])
         transform = projectmatrix@viewTransform@point
-        return Point3(transform[0, 0], transform[1, 0], transform[2, 0])
+        newpoint = Point2(transform[0, 0]/transform[3,0], transform[1, 0]/transform[3,0])
+        return newpoint
     
     # To string representation
     def __repr__(self) -> str:
@@ -131,9 +141,9 @@ class Point2(np.ndarray):
     def y(self):
         return self[1, 0]
     @property
-    def a(self):
+    def w(self):
         return self[2, 0]
     
     # To string representation
     def __repr__(self) -> str:
-        return f"Point2(x={self.x}),y={self.y},a={self.a}"
+        return f"Point2(x={self.x}),y={self.y},w={self.w}"

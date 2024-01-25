@@ -70,8 +70,8 @@ class Object:
             pt1 = Point3.matrixproject(self.verts[con[0]], distance, focal, near, viewTransform)
             pt2 = Point3.matrixproject(self.verts[con[1]], distance, focal, near, viewTransform)
             pg.draw.line(self.screen, (0, 255, 0),
-                         (pt1.x/pt1.w+int(self.screen.get_width()/2), pt1.y/pt1.w+int(self.screen.get_height()/2)),
-                         (pt2.x/pt2.w+int(self.screen.get_width()/2), pt2.y/pt2.w+int(self.screen.get_height()/2)), 2)
+                         (pt1.x+int(self.screen.get_width()/2), pt1.y+int(self.screen.get_height()/2)),
+                         (pt2.x+int(self.screen.get_width()/2), pt2.y+int(self.screen.get_height()/2)), 2)
     
     def orthodraw(self):
         for con in self.connections:

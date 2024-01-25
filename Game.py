@@ -15,7 +15,7 @@ class Game:
         self.screen = pg.display.set_mode((w, h), pg.RESIZABLE)
         self.clock = pg.time.Clock()
         self.refresh_rate = refresh_rate
-        self.distance = 5.0
+        self.distance = 1
         self.focalLength = 1.0
         self.nearClipping = 0.1
         self.models = []
