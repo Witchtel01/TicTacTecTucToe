@@ -11,7 +11,7 @@ def main():
     refresh_rate = Game.getRefreshRate()
     g = Game(width, height, refresh_rate)
     defaultCube = Object.getDefaultPrism()
-    defaultCube.scale(10, 10, 10)
+    # defaultCube.scale(10, 10, 10)
     defaultCube.rX(math.radians(45))
     defaultCube.rY(math.radians(20))
     g.addModel(defaultCube)

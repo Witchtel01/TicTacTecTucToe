@@ -5,7 +5,7 @@ import numpy as np
 
 
 class Point3(np.ndarray):
-    # Point3 with x, y, z parameters
+    # Point3 with x, y, z parameters and a homongeneous coordinate
     def __new__(cls, x: float, y: float, z: float) -> 'Point3':
         obj = super(Point3, cls).__new__(cls, (4,1), dtype=float)
         obj[0, 0] = x
@@ -56,7 +56,7 @@ class Point3(np.ndarray):
         transformed = scalearray.dot(self)
         self[:, 0] = transformed[:, 0]
         return self
-
+    
     # Rotation around X axis
     def rX(self, t: float) -> 'Point3':
         rotarray = np.array([(1, 0, 0, 0),
