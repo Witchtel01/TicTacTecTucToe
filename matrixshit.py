@@ -21,20 +21,30 @@ class Point3(np.ndarray):
         return cls(x,y,z)
     
     @property
-    def x(self):
+    def x(self) -> float:
         return self[0, 0]
     @property
-    def y(self):
+    def y(self) -> float:
         return self[1, 0]
     @property
-    def z(self):
+    def z(self) -> float:
         return self[2, 0]
     @property
-    def w(self):
+    def w(self) -> float:
         return self[3, 0]
     
-    # Translation by translation matrix
+    
     def translate(self, x: float = 0, y: float = 0, z: float = 0) -> 'Point3':
+        """Translates a point
+
+        Args:
+            x (float, optional): Change in X. Defaults to 0.
+            y (float, optional): Change in Y. Defaults to 0.
+            z (float, optional): Change in Z. Defaults to 0.
+
+        Returns:
+            Point3: _description_
+        """        
         transarray = np.array([
             (1, 0, 0, x),
             (0, 1, 0, y),
@@ -45,8 +55,18 @@ class Point3(np.ndarray):
         self[:, 0] = transformed[:, 0]
         return self
     
-    # Scaling from scale matrix
+    
     def scale(self, sx: float = 1, sy: float = 1, sz: float = 1) -> 'Point3':
+        """Scales a point
+
+        Args:
+            sx (float, optional): Scale of X. Defaults to 1.
+            sy (float, optional): Scale of Y. Defaults to 1.
+            sz (float, optional): Scale of Z. Defaults to 1.
+
+        Returns:
+            Point3: Scaled point
+        """        
         scalearray = np.array([
             (sx, 0, 0, 0),
             (0, sy, 0, 0),
@@ -57,8 +77,15 @@ class Point3(np.ndarray):
         self[:, 0] = transformed[:, 0]
         return self
     
-    # Rotation around X axis
     def rX(self, t: float) -> 'Point3':
+        """Rotates a point around the X axis
+
+        Args:
+            t (float): Angle to rotate by
+
+        Returns:
+            Point3: Rotated Point
+        """        
         rotarray = np.array([(1, 0, 0, 0),
                     (0, cos(t), -sin(t), 0),
                     (0, sin(t), cos(t), 0),
@@ -67,8 +94,15 @@ class Point3(np.ndarray):
         self[:, 0] = transformed[:, 0]
         return self
     
-    # Rotation around y axis
     def rY(self, t: float) -> 'Point3':
+        """Rotates a point around the Y axis
+
+        Args:
+            t (float): Angle to rotate by
+
+        Returns:
+            Point3: Rotated point
+        """        
         rotarray = np.array([(cos(t), 0, sin(t), 0),
             (0, 1, 0, 0),
             (-sin(t), 0, cos(t), 0),
@@ -77,8 +111,16 @@ class Point3(np.ndarray):
         self[:, 0] = transformed[:, 0]
         return self
     
-    # Rotation around Z axis
+    
     def rZ(self, t: float) -> 'Point3':
+        """Rotates a point around the Z axis
+
+        Args:
+            t (float): Angle to rotate by
+
+        Returns:
+            Point3: Rotated point
+        """        
         rotarray = np.array([(cos(t), -sin(t), 0, 0),
                     (sin(t), cos(t), 0, 0),
                     (0, 0, 1, 0),
@@ -87,14 +129,20 @@ class Point3(np.ndarray):
         self[:, 0] = transformed[:, 0]       
         return self
     
-    # Project into 2D using a matrix
+    
     @staticmethod
-    def matrixproject(point: 'Point3', distance, focal: float, near: float, viewTransform) -> 'Point2':
-        """
-        Project a Point3 object into 2D using a matrix.
+    def matrixproject(point: 'Point3', distance, focal: float, near: float, viewTransform: np.ndarray) -> 'Point2':
+        """Project a Point3 object into 2D using a projection matrix
+
+        Args:
+            point (Point3): The point to project
+            distance (float): Distance from camera to point (I think)
+            focal (float): Camera focal length
+            near (float): Some sort of special graphics value
+            viewTransform (np.array): Transform by camera
 
         Returns:
-            A new Point3 object representing the projected point.
+            Point2: A new Point2 object representing the projected point
         """
         # Advanced projectmatrix
         # projectmatrix = np.array([
@@ -112,12 +160,17 @@ class Point3(np.ndarray):
             (0, 0, 0, 1)
         ])
         transform = projectmatrix@viewTransform@point
-        newpoint = Point2(transform[0, 0]/transform[3,0], transform[1, 0]/transform[3,0])
+        newpoint = Point2(transform[0, 0]/transform[3, 0], transform[1, 0]/transform[3, 0])
         return newpoint
     
-    # To string representation
+
     def __repr__(self) -> str:
-        return f"Point3(x={self.x},y={self.y},z={self.z},w={self.w})"
+        """Custom str(obj) definition
+
+        Returns:
+            str: Representation of the point as a string
+        """        
+        return f"Point3(x={self.x:f0.2},y={self.y:f0.2},z={self.z:f0.2},w={self.w:f0.2})"
 
 
 class Point2(np.ndarray):
@@ -135,15 +188,19 @@ class Point2(np.ndarray):
         x, y = coordinates
         return cls(x, y)
     @property
-    def x(self):
+    def x(self) -> float:
         return self[0, 0]
     @property
-    def y(self):
+    def y(self) -> float:
         return self[1, 0]
     @property
-    def w(self):
+    def w(self) -> float:
         return self[2, 0]
     
-    # To string representation
     def __repr__(self) -> str:
-        return f"Point2(x={self.x}),y={self.y},w={self.w}"
+        """Custom str(obj) definition
+
+        Returns:
+            str: Representation of the point as a string
+        """        
+        return f"Point2(x={self.x:f0.2}),y={self.y:f0.2},w={self.w:f0.2}"

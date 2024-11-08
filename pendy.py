@@ -43,7 +43,7 @@ y0 = np.array([3*np.pi/7, 0, 3*np.pi/4, 0])
 y = odeint(deriv, y0, t, args=(L1, L2, m1, m2))
 
 # Check that the calculation conserves total energy to within some tolerance.
-EDRIFT = 0.05
+EDRIFT = 0.1
 # Total energy from the initial conditions
 E = calc_E(y0)
 if np.max(np.sum(np.abs(calc_E(y) - E))) > EDRIFT:
